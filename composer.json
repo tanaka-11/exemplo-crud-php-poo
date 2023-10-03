@@ -1,0 +1,9 @@
+{
+    "name" : "mtanaka/exemplo-crud-php-poo",
+    "description" : "Exemplo de sistema CRUD com PHP/SQL com Orientação a Objetos e com Classes gerenciadas pelo Composer",
+    "autoload" : {
+        "psr-4" : {
+            "ExemploCrudPoo\\" : "src/"
+        }
+    }
+}
