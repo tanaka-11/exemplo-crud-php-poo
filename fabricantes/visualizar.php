@@ -6,12 +6,13 @@ require_once "../vendor/autoload.php";
 // Criando objeto
 $fabricante = new Fabricante;
 
-// $listaDeFabricantes = lerFabricantes($conexao);
-// $quantidade = count($listaDeFabricantes);
+// 
+$listaDeFabricantes = $fabricante->lerFabricantes();
+$quantidade = count($listaDeFabricantes);
 
 ?>
 
-<pre> <?=var_dump($fabricante)?> </pre>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
