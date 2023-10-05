@@ -25,7 +25,7 @@ final class Produto {
         $this->conexao = Database::conecta();
     }
 
-    // Metodo para exibir dados dos Produtos.
+    // Metodo para exibir todos os dados dos Produtos.
     public function lerProdutos():array {
         $sql = "SELECT 
                     produtos.id,
@@ -48,6 +48,7 @@ final class Produto {
         return $resultado;
     }
 
+    // Metodo para inserir dados de um Produto.
     public function inserirProduto():void {
         $sql = "INSERT INTO produtos(
             nome, preco, quantidade, descricao, fabricante_id
@@ -67,6 +68,7 @@ final class Produto {
             die("Erro ao inserir: ".$erro->getMessage());
         }
     }
+    
     
 
 
