@@ -44,6 +44,21 @@ final class Fabricante {
     
     }
     
+    // Metodo para exibir dados de UM fabricante.
+    public function lerUmFabricante():array {
+        $sql = "SELECT * FROM fabricantes WHERE id = :id";
+    
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao carregar: ".$erro->getMessage());
+        }
+    
+        return $resultado;
+    } 
 
 
 
@@ -71,3 +86,5 @@ final class Fabricante {
         return $this;
     }
 }
+
+    
