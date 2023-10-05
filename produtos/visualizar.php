@@ -7,7 +7,7 @@ require_once "../vendor/autoload.php";
 $produto = new Produto;
 
 // Chamando a classe pelo objeto.
-$listaDeProdutos = $produto->lerProdutos();
+// $listaDeProdutos = $produto->lerProdutos();
 
 ?>
 <!DOCTYPE html>
