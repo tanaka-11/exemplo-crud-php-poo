@@ -1,33 +1,36 @@
 <?php
-require_once "../src/funcoes-produtos.php";
-require_once "../src/funcoes-fabricantes.php";
-$listaDeFabricantes = lerFabricantes($conexao);
+// Require e Use
+use ExemploCrudPoo\Produto;
+use ExemploCrudPoo\Fabricante;
 
-$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
-$produto = lerUmProduto($conexao, $id);
+require_once "../vendor/autoload.php";
+
+// Criação dos objetos
+$fabricante = new Fabricante;
+$produto = new Produto;
+
+// Sanitização e capturando dado.
+$produto->setId($_GET['id']);
+
+// Chamando os metodos e guardando numa variavel
+$dadosDoProduto = $produto->lerUmProduto();
+$dadosDoFabricante = $fabricante->lerFabricantes();
 
 if(isset($_POST['atualizar'])){
-    $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Sanitização
+    $produto->setNome($_POST['nome']); 
     
-    $preco = filter_input(
-        INPUT_POST, "preco", 
-        FILTER_SANITIZE_NUMBER_FLOAT,
-        FILTER_FLAG_ALLOW_FRACTION
-    );
+    $produto->setPreco($_POST['preco']); 
 
-    $quantidade = filter_input(
-        INPUT_POST, "quantidade", FILTER_SANITIZE_NUMBER_INT
-    );
+    $produto->setQuantidade($_POST['quantidade']);
 
-    $fabricanteId = filter_input(
-        INPUT_POST, "fabricante", FILTER_SANITIZE_NUMBER_INT
-    );
+    $produto->setFabricanteId($_POST['fabricante_id']);
 
-    $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
+    $produto->setDescricao($_POST['descricao']);
 
-    atualizarProduto(
-        $conexao, $id, $nome, $preco, $quantidade, $descricao, $fabricanteId
-    );
+    // Chamada do metodo
+    $produto->atualizarProduto();
 
     header("location:visualizar.php");
 }
