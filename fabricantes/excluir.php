@@ -1,7 +1,7 @@
 <?php
 // require do autoload, chamada do use e criação do objeto.
-require_once "../vendor/autoload.php";
 use ExemploCrudPoo\Fabricante;
+require_once "../vendor/autoload.php";
 $fabricante = new Fabricante;
 
 // Sanitização direto da classe.
