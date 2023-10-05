@@ -1,8 +1,21 @@
 <?php
+// Require do composer e use da classe Fabricante.
+use ExemploCrudPoo\Fabricante;
+require_once "../vendor/autoload.php";
+
 if( isset($_POST['inserir']) ){
-    require_once "../src/funcoes-fabricantes.php";  
-    $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-    inserirFabricante($conexao, $nome);
+    // Criando objeto.
+    $fabricante = new Fabricante;
+
+    // Sanitização versão 1. 
+    // $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Sanitização versão 2 pelo get da classe.
+    $fabricante->setNome($_POST['nome']);
+
+    // Passando o objeto para acesso da Classe.
+    $fabricante->inserirFabricante();
+
     header("location:visualizar.php");
 }
 ?>

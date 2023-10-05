@@ -66,7 +66,8 @@ final class Fabricante {
     }
 
     public function setNome(string $nome): self {
-        $this->nome = $nome;
+        // Sanitizando com o filter_var pois não se trata de um formulario para usar o post.
+        $this->nome = filter_var($nome, FILTER_SANITIZE_SPECIAL_CHARS);
         return $this;
     }
 }
