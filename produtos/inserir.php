@@ -1,31 +1,30 @@
 <?php
-require_once "../src/funcoes-fabricantes.php";
-require_once "../src/funcoes-produtos.php";
+// Require do composer e use da classe Produto.
+use ExemploCrudPoo\Produto;
+use ExemploCrudPoo\Fabricante;
+require_once "../vendor/autoload.php";
 
-$listaDeFabricantes = lerFabricantes($conexao);
+$fabricante = new Fabricante;
+$produto = new Produto;
+
+$listaDeFabricantes = $fabricante->lerFabricantes();
+$listaDeProdutos = $produto->lerProdutos();
 
 if(isset($_POST['inserir'])){
-    $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    $preco = filter_input(
-        INPUT_POST, "preco", 
-        FILTER_SANITIZE_NUMBER_FLOAT,
-        FILTER_FLAG_ALLOW_FRACTION
-    );
 
-    $quantidade = filter_input(
-        INPUT_POST, "quantidade", FILTER_SANITIZE_NUMBER_INT
-    );
+    // Sanitização
+    $produto->setNome($_POST['nome']);
 
-    $fabricanteId = filter_input(
-        INPUT_POST, "fabricante", FILTER_SANITIZE_NUMBER_INT
-    );
+    $produto->setPreco($_POST['preco']);
 
-    $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
+    $produto->setQuantidade($_POST['quantidade']);
 
-    inserirProduto(
-        $conexao, $nome, $preco, $quantidade, $fabricanteId, $descricao
-    );
+    $produto->setFabricanteId($_POST['fabricante']);
+
+    $produto->setDescricao($_POST['descricao']);
+
+    // Chamando o metodo pelo objeto
+    $produto->inserirProduto();
 
     header("location:visualizar.php");
 }

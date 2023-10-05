@@ -1,7 +1,11 @@
 <?php
-// Namespace e use
+// Namespace e use da conexão
 namespace ExemploCrudPoo;
 use PDO, Exception;
+
+// Namespace e use do fabricante
+use ExemploCrudPoo\Fabricante;
+$fabricante = new Fabricante;
 
 // Criando a classe
 final class Produto {
@@ -36,13 +40,32 @@ final class Produto {
     
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->execute();
+            $consulta -> execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
             die("Erro ao carregar produtos: ".$erro->getMessage());
         }
-        
         return $resultado;
+    }
+
+    public function inserirProduto():void {
+        $sql = "INSERT INTO produtos(
+            nome, preco, quantidade, descricao, fabricante_id
+        ) VALUES(
+            :nome, :preco, :quantidade, :descricao, :fabricanteId
+        )";    
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindValue(":preco", $this->preco, PDO::PARAM_STR);
+            $consulta->bindValue(":quantidade", $this->quantidade, PDO::PARAM_INT);
+            $consulta->bindValue(":descricao", $this->descricao, PDO::PARAM_STR);
+            $consulta->bindValue(":fabricanteId", $this->fabricante_id, PDO::PARAM_INT);
+            $consulta->execute();
+        } catch (Exception $erro) {
+            die("Erro ao inserir: ".$erro->getMessage());
+        }
     }
     
 
