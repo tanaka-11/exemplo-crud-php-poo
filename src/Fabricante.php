@@ -72,7 +72,8 @@ final class Fabricante {
     }
 
     public function setId(int $id): self {
-        $this->id = $id;
+        // Sanitizando com o filter_var. 
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         return $this;
     }
 

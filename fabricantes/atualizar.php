@@ -1,7 +1,14 @@
 <?php
-require_once "../src/funcoes-fabricantes.php";
-$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
-$fabricante = lerUmFabricante($conexao, $id);
+// Fazendo require do autoload, use da classe e criação de objeto.
+require_once "../vendor/autoload.php";
+use ExemploCrudPoo\Fabricante;
+$fabricante = new Fabricante;
+
+// Sanitização direto da classe.
+$fabricante->setId($_GET['id']);
+
+// Guardando os dados numa variavel com o nome diferente do objeto.
+$dadosDofabricante = $fabricante->lerUmFabricante();
 
 if( isset($_POST['atualizar']) ){
     $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -15,6 +22,7 @@ if( isset($_POST['atualizar']) ){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabricantes - Atualização</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
@@ -22,10 +30,10 @@ if( isset($_POST['atualizar']) ){
         <h1>Fabricantes | SELECT/UPDATE</h1>
         <hr>
         <form action="" method="post">
-            <input type="hidden" name="id" value="<?=$fabricante['id']?>">
+            <input type="hidden" name="id" value="<?=$dadosDofabricante['id']?>">
             <p>
                 <label for="nome">Nome:</label>
-                <input value="<?=$fabricante['nome']?>" required type="text" name="nome" id="nome">
+                <input value="<?=$dadosDofabricante['nome']?>" required type="text" name="nome" id="nome">
             </p>
             <button type="submit" name="atualizar">
                 Atualizar fabricante</button>
