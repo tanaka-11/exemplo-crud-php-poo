@@ -1,7 +1,14 @@
 <?php
-require_once "../src/funcoes-produtos.php";
-require_once "../src/funcoes-utilitarias.php";
-$listaDeProdutos = lerProdutos($conexao);
+// Autoload e use do namespace.
+use ExemploCrudPoo\Produto;
+require_once "../vendor/autoload.php";
+
+// Criação de objeto.
+$produto = new Produto;
+
+// Chamando a classe pelo objeto.
+$listaDeProdutos = $produto->lerProdutos();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
