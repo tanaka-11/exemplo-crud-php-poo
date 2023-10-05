@@ -15,7 +15,7 @@ final class Fabricante {
         $this->conexao = Database::conecta();
     }
 
-    // Criando metodo para exibir dados dos Fabricantes.
+    // Metodo para exibir dados dos Fabricantes.
     public function lerFabricantes():array {
         $sql = "SELECT * FROM fabricantes ORDER BY nome";
         
@@ -30,7 +30,7 @@ final class Fabricante {
         return $resultado;
     } 
     
-    // Criando metodo para inserir Fabricante.
+    // Metodo para inserir Fabricante.
     public function inserirFabricante():void {
         $sql = "INSERT INTO fabricantes(nome) VALUES(:nome)";
     
@@ -59,6 +59,21 @@ final class Fabricante {
     
         return $resultado;
     } 
+
+    // Metodo para atualizar dados de UM fabricante.
+    public function atualizarFabricante():void {
+        $sql = "UPDATE fabricantes SET nome = :nome WHERE id = :id";
+        
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+        } catch (Exception $erro) {
+            die("Erro ao atualizar: ".$erro->getMessage());
+        }
+    } 
+    
 
 
 
