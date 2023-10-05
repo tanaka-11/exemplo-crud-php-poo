@@ -1,5 +1,13 @@
 <?php
-require_once "../src/funcoes-produtos.php";
-$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
-excluirProduto($conexao, $id);
+// require do autoload, chamada do use e criação do objeto.
+use ExemploCrudPoo\Produto;
+require_once "../vendor/autoload.php";
+$produto = new Produto;
+
+// Sanitização e captura de dado.
+$produto->setId($_GET['id']);  
+
+// Chamada de metodo
+$produto->excluirProduto();
+
 header("location:visualizar.php");
