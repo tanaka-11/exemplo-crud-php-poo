@@ -13,11 +13,10 @@ $produto = new Produto;
 $produto->setId($_GET['id']);
 
 // Chamando os metodos e guardando numa variavel
-$dadosDoProduto = $produto->lerUmProduto();
 $dadosDoFabricante = $fabricante->lerFabricantes();
+$dadosDoProduto = $produto->lerUmProduto();
 
 if(isset($_POST['atualizar'])){
-
     // Sanitização
     $produto->setNome($_POST['nome']); 
     
@@ -25,7 +24,7 @@ if(isset($_POST['atualizar'])){
 
     $produto->setQuantidade($_POST['quantidade']);
 
-    $produto->setFabricanteId($_POST['fabricante_id']);
+    $produto->setFabricanteId($_POST['fabricante']);
 
     $produto->setDescricao($_POST['descricao']);
 
@@ -50,17 +49,17 @@ if(isset($_POST['atualizar'])){
         <form action="" method="post">
             <p>
                 <label for="nome">Nome:</label>
-                <input value="<?=$produto['nome']?>" type="text" name="nome" id="nome" required>
+                <input value="<?=$dadosDoProduto['nome']?>" type="text" name="nome" id="nome" required>
             </p>
             <p>
                 <label for="preco">Preço:</label>
-                <input value="<?=$produto['preco']?>"
+                <input value="<?=$dadosDoProduto['preco']?>"
                 type="number" min="10" max="10000" step="0.01"
                  name="preco" id="preco" required>
             </p>
             <p>
                 <label for="quantidade">Quantidade:</label>
-                <input value="<?=$produto['quantidade']?>"
+                <input value="<?=$dadosDoProduto['quantidade']?>"
                 type="number" min="1" max="100"
                  name="quantidade" id="quantidade" required>
             </p>
@@ -69,8 +68,8 @@ if(isset($_POST['atualizar'])){
                 <select name="fabricante" id="fabricante" required>
                     <option value=""></option>
         
-                    <?php foreach( $listaDeFabricantes as $fabricante ) { ?>
-                        <option <?php if($produto["fabricante_id"] === $fabricante["id"]) echo " selected "; ?>
+                    <?php foreach( $dadosDoFabricante as $fabricante ) { ?>
+                        <option <?php if($dadosDoProduto["fabricante_id"] === $fabricante["id"]) echo " selected "; ?>
                         value="<?=$fabricante['id']?>">
                             <?=$fabricante['nome']?>
                         </option>
@@ -79,7 +78,7 @@ if(isset($_POST['atualizar'])){
             </p>
             <p>
                 <label for="descricao">Descrição:</label> <br>
-                <textarea name="descricao" id="descricao" cols="30" rows="3"><?=$produto['descricao']?></textarea>
+                <textarea name="descricao" id="descricao" cols="30" rows="3"><?=$dadosDoProduto['descricao']?></textarea>
             </p>
             <button type="submit" name="atualizar">Atualizar produto</button>
         </form>

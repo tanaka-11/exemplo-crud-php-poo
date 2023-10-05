@@ -91,14 +91,14 @@ final class Produto {
             preco = :preco,
             quantidade = :quantidade,
             descricao = :descricao,
-            fabricante_id = :fabricanteId WHERE id = :id";
+            fabricante_id = :FabricanteId WHERE id = :id";
         try {
             $consulta = $this->conexao->prepare($sql);
             $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
             $consulta->bindValue(":preco", $this->preco, PDO::PARAM_STR);
             $consulta->bindValue(":quantidade", $this->quantidade, PDO::PARAM_INT);
             $consulta->bindValue(":descricao", $this->descricao, PDO::PARAM_STR);
-            $consulta->bindValue(":fabricanteId", $this->fabricante_id, PDO::PARAM_INT);
+            $consulta->bindValue(":FabricanteId", $this->fabricante_id, PDO::PARAM_INT);
             $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
             $consulta->execute();
         } catch (Exception $erro) {
